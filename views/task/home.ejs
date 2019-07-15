@@ -1,0 +1,103 @@
+<%- include('../header'); -%>
+
+<div>
+  <div class="row justify-content-center">
+    <div class="col-8 mx-auto  mt-5">
+      <a class="btn btn-primary float-right" href="/users/home" role="button"
+        >Back to User</a
+      >
+      <a class="btn btn-primary float-right mr-2" href="add" role="button"
+        >Add Task</a
+      >
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-8 mx-auto mt-2">
+      <%- include('../alert'); -%>
+
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>#</th>
+
+            <th scope="col">Task</th>
+            <th scope="col">Member</th>
+            <th scope="col">Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% var c=1; if(task.length > 0) { for(var i = 0; i < task.length; i++)
+          { %>
+          <tr>
+            <th scope="row"><%= c %></th>
+            <td><%= task[i].task %></td>
+            <td>
+              <% member.find(memberData => { if(memberData._id ==
+              task[i].memberId){ %> <%= memberData.firstName+' '
+              +memberData.lastName %> <% } }) %>
+            </td>
+            <td>
+              <% if(task[i].status == '0' && task[i].memberId) { %> <%=
+              "Pending" %> <% } else if(task[i].status == '1' &&
+              task[i].memberId){ %> <%= "Complete" %> <% } %>
+            </td>
+            <td>
+              <a
+                href="/task/edit/<%= task[i]._id %>"
+                class="btn btn-dark"
+                href="#"
+                role="button"
+                >Edit</a
+              >
+              <a
+                href="/task/delete/<%= task[i]._id %>"
+                class="btn btn-danger"
+                href="#"
+                role="button"
+                >Delete</a
+              >
+              <a
+                href="/task/assign/<%= task[i]._id %>"
+                class="btn btn-info"
+                href="#"
+                role="button"
+                >Assign Task</a
+              >
+
+              <form class="form-check form-check-inline" method="post">
+                <% if(task[i].status == '0' && task[i].memberId) { %>
+                <input type="hidden" value="<%= task[i]._id %>" name="id" />
+                <input
+                  type="hidden"
+                  value="<%= task[i].status %>"
+                  name="status"
+                />
+                <button class="btn btn-warning" type="submit">
+                  Mark Pending
+                </button>
+                <% } else if(task[i].status == '1' && task[i].memberId){ %>
+                <input type="hidden" value="<%= task[i]._id %>" name="id" />
+                <input
+                  type="hidden"
+                  value="<%= task[i].status %>"
+                  name="status"
+                />
+                <button class="btn btn-success" type="submit">
+                  Mark Complete</button
+                ><% } %>
+              </form>
+            </td>
+          </tr>
+          <% c++; } }else{ %>
+          <tr>
+            <td colspan="5">No Record Found</td>
+          </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<%- include('../footer'); -%>

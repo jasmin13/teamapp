@@ -1,0 +1,14 @@
+#login,
+#register {
+  padding-top: 30px;
+}
+
+.logout a,
+.profile a {
+  color: #fff;
+  padding-left: 0px;
+}
+
+.error {
+  color: red;
+}

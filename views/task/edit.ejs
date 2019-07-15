@@ -1,0 +1,29 @@
+<%- include('../header'); -%>
+
+<div class="row justify-content-center">
+  <div class="col-5 mx-auto mt-2">
+    <div class="card">
+      <div class="card-header">Edit Task</div>
+      <div class="card-body">
+        <form method="post">
+          <div class="form-group">
+            <label for="task">Task</label>
+
+            <textarea class="form-control" name="task" id="task" rows="3">
+<%= task.task %></textarea
+            >
+            <% if(errors && errors.task) { %>
+            <p class="error"><%= errors.task.msg %></p>
+            <% } %>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+          <a href="/task/home" class="btn btn-light">
+            Cancel
+          </a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../footer'); -%>
