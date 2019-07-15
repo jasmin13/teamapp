@@ -200,7 +200,7 @@ router.post("/assign/:id", async (req, res) => {
     let task = await Task.findOne({ _id: req.params.id });
 
     const data = await Task.findOneAndUpdate(
-      { _id: task._id, sessionID: req.session.userID },
+      { _id: task._id },
       { memberId: member._id },
       { new: true }
     ).exec();
